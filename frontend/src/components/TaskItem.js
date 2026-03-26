@@ -1,4 +1,4 @@
-function TaskItem({task}) {
+function TaskItem({ task, actions}) {
   return (
     <article className="Task-item">
         <div className="task-header">
@@ -16,10 +16,10 @@ function TaskItem({task}) {
             <input
             type="checkbox"
             checked={task.completed}
-            // onChange={() => onToggle(task.id, !task.completed)}
+            onChange={() => actions.handleToggle(task.id)}
             />
-            <button onClick={() => console.log('onEdit(task)')}>Edit</button>
-            <button onClick={() => console.log('onDelete(task.id)')}>Delete</button>
+            <button onClick={() => actions.setEditingTask(task)}>Edit</button>
+            <button onClick={() => actions.handleDelete(task.id)}>Delete</button>
         </div>
     </article>
   )
