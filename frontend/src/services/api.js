@@ -11,7 +11,7 @@ export const getTasks = async () => {
         return res.json();
     } catch (err) {
         console.error(err);
-        return null;
+        return [];
     }
 }
 
@@ -29,7 +29,7 @@ export const createTask = async (taskData) => {
         return res.json();
     } catch (err) {
         console.error(err);
-        return null;
+        return [];
     }
 }
 
@@ -47,7 +47,7 @@ export const updateTask = async (id, taskData) => {
         return res.json();
     } catch (err) {
         console.error(err);
-        return null;
+        return [];
     }
 }
 
@@ -79,6 +79,6 @@ export const toggleTask = async (id) => {
         return res.json();
     } catch (err) {
         console.error(err);
-        return null;
+        return [];
     }
 }

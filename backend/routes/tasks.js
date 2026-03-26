@@ -1,7 +1,8 @@
 const express = require('express');
-
+const { validateTaskUpdate, validateTask } = require('../middlewere/validate');
 module.exports = (tasks) => {
   const router = express.Router();
+  let nextId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
 
   //get
   router.get('/', (req, res) => {
@@ -9,16 +10,16 @@ module.exports = (tasks) => {
   });
 
   //post
-  router.post('/', (req, res) => {
-    const { title, description, completed, createdAt, priority } = req.body;
+  router.post('/', validateTask, (req, res) => {
+    const { title, description, priority } = req.body;
 
     const newTask = {
-        id: tasks.length + 1,
+        id: nextId,
         title,
         description,
         createdAt: new Date().toISOString(),
         completed: false,
-        priority
+        priority: priority || 'middle'
     }
 
     tasks.push(newTask);
@@ -26,7 +27,7 @@ module.exports = (tasks) => {
   });
 
   //update
-  router.put('/:id', (req, res) => {
+  router.put('/:id', validateTaskUpdate, (req, res) => {
     const id = parseInt(req.params.id);
     const index = tasks.findIndex(t => t.id === id);
 
