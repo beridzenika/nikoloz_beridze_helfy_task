@@ -63,6 +63,7 @@ function TaskForm({ onSubmit, editingTask }) {
           name="description"
           value={task.description}
           onChange={handleChange}
+          required
         />
         <select name="priority" value={task.priority} onChange={handleChange}>
           <option value="low">Low</option>

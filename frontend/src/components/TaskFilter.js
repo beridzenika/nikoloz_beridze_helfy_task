@@ -1,9 +1,19 @@
-import React from 'react'
+function TaskFilter({ activeFilter, setActiveFilter }) {
+  const filters = ['all', 'completed', 'pending'];
 
-function TaskFilter() {
   return (
-    <div>TaskFilter</div>
-  )
+    <div className="task-filter">
+      {filters.map(filter => (
+        <button
+          key={filter}
+          onClick={() => setActiveFilter(filter)}
+          className={activeFilter === filter ? 'active' : ''}
+        >
+          {filter}
+        </button>
+      ))}
+    </div>
+  );
 }
 
-export default TaskFilter
+export default TaskFilter;

@@ -10,7 +10,7 @@ import TaskList from './components/TaskList';
 function App() {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
-
+  const [filter, setFilter] = useState('all');
   //get
   useEffect(() => {
     const fetchTasks = async () => {
@@ -48,13 +48,20 @@ function App() {
     }
   }
 
+  //filter
+  const filteredTasks = tasks.filter(t => {
+    if (filter === 'completed') return t.completed;
+    if (filter === 'pending') return !t.completed;
+    return true;
+  });
+
   return (
     <div className="App">
       <h1>Task Manager</h1>
 
-      <TaskFilter />
+      <TaskFilter activeFilter={filter} setActiveFilter={setFilter}/>
       <TaskList 
-        tasks={tasks} 
+        tasks={filteredTasks} 
         actions={{ setEditingTask, handleDelete, handleToggle }}
       />
 
