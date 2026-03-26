@@ -1,0 +1,58 @@
+.task-form {
+  border: 2px solid #e6dab6;
+  border-radius: 12px;
+  padding: 20px;
+  background-color: #f5efca;
+  margin: auto 20%;
+  color: #63422a;
+}
+
+.task-form h2 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.task-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-form input,
+.task-form textarea,
+.task-form select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d6c79c;
+  background-color: #fffdf4;
+  color: #63422a;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.task-form input:focus,
+.task-form textarea:focus,
+.task-form select:focus {
+  border-color: #c2a66b;
+}
+
+.task-form textarea {
+  resize: none;
+  height: 80px;
+}
+
+.task-form button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #805333;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.task-form button:hover {
+  background-color: #63422a;
+}

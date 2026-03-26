@@ -1,12 +1,10 @@
-function TaskItem({ task, actions}) {
+function TaskItem({ task, onEdit, onDelete, onToggle }) {
   return (
     <article className="Task-item">
+      <span className={`priority ${task.priority}`}>
+      {task.priority} priority
+      </span>
         <div className="task-header">
-            <span
-            className="priority"
-            >
-            {task.priority}
-            </span>
             <h3>{task.title}</h3>
         </div>
         <p className="text">{task.description}</p>
@@ -14,12 +12,13 @@ function TaskItem({ task, actions}) {
 
         <div className="task-actions">
             <input
+            className="checkbox"
             type="checkbox"
             checked={task.completed}
-            onChange={() => actions.handleToggle(task.id)}
+            onChange={() => onToggle(task.id)}
             />
-            <button onClick={() => actions.setEditingTask(task)}>Edit</button>
-            <button onClick={() => actions.handleDelete(task.id)}>Delete</button>
+            <button onClick={() => onEdit(task)}>Edit</button>
+            <button onClick={() => onDelete(task.id)}>Delete</button>
         </div>
     </article>
   )

@@ -9,44 +9,67 @@ import TaskList from './components/TaskList';
 
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [editingTask, setEditingTask] = useState(null);
   const [filter, setFilter] = useState('all');
-  //get
+  const [editingTask, setEditingTask] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const fetchTasks = async () => {
-      const data = await getTasks();
-      setTasks(data);
+      setLoading(true);
+      try {
+        const data = await getTasks();
+        setTasks(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchTasks();
-  });
+  }, []);
 
   //post
   const handleCreate = async (taskData) => {
-    const newTask = await createTask(taskData);
-    setTasks(prev => [...prev, newTask]);
+    try {
+      const newTask = await createTask(taskData);
+      setTasks(prev => [...prev, newTask]);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   //update
-  const handleEdit = async (id, taskData) => {
-    const editedTask = await updateTask(id, taskData);
-    setTasks(prev => prev.map(t => t.id === id? editedTask : t));
-    setEditingTask(null);
-  }
+   const handleEdit = async (id, taskData) => {
+    try {
+      const updated = await updateTask(id, taskData);
+      setTasks(prev => prev.map(t => t.id === id ? updated : t));
+      setEditingTask(null);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   //delete
   const handleDelete = async (id) => {
-    if (!window.confirm('Delete this task for real?')) return;
-    await deleteTask(id);
-    setTasks(prev => prev.filter(t => t.id !== id));
-  }
-  
-  //toggle
-  const handleToggle = async (id) => {
-    const edited = await toggleTask(id);
-    if (edited) {
-      setTasks(prev => prev.map(t => t.id === id ? edited : t));
+    if (!window.confirm('Delete this task?')) return;
+    try {
+      await deleteTask(id);
+      setTasks(prev => prev.filter(t => t.id !== id));
+    } catch (err) {
+      setError(err.message);
     }
-  }
+  };
+
+  //toggle
+  const handleToggle = async (id, completed) => {
+    try {
+      const updated = await toggleTask(id, completed);
+      setTasks(prev => prev.map(t => t.id === id ? updated : t));
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   //filter
   const filteredTasks = tasks.filter(t => {
@@ -57,13 +80,25 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Task Manager</h1>
-
+      <header>
+        <h1>Task Manager</h1>
+        <img className='logo' src='logo.png'/>
+      </header>
+    
       <TaskFilter activeFilter={filter} setActiveFilter={setFilter}/>
+
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
       <TaskList 
         tasks={filteredTasks} 
-        actions={{ setEditingTask, handleDelete, handleToggle }}
+        onEdit={setEditingTask}
+        onDelete={handleDelete}
+        onToggle={handleToggle}
       />
+      )}
+
+      {error && <p className='error-message'>{error}</p>}
 
       <TaskForm 
        onSubmit={editingTask ? (data) => handleEdit(editingTask.id, data) : handleCreate}

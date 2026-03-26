@@ -4,62 +4,38 @@
 .App {
   text-align: center;
 }
-
-
-.Task-list {
-    display: flex;
-    justify-content: space-around;
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  color: #63422a;
+  display: inline;
+  padding: 10px;
+}
+.logo{
+  width: 50px;
+}
+.error-message {
+  color: red;
 }
 
-/* task item */
-.Task-item {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 12px;
-    margin-bottom: 12px;
-    background-color: #f9f9f9;
-    width: 300px;
+.task-filter {
+  border-bottom: 2px solid #e6dab6;
+  padding: 10px;
 }
 
-.task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.task-filter button {
+  padding: 8px 20px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+  background-color:  #805333;
 }
-
-.priority {
-    padding: 2px 6px;
-    border-radius: 4px;
-    background-color: #999;
-    color: white;
-    font-size: 0.8rem;
-}
-
-.text {
-    margin: 8px 0;
-}
-
-.date {
-    font-size: 0.75rem;
-    color: #666;
-    text-align: end;
-}
-
-.task-actions {
-    margin-top: 8px;
-    display: flex;
-    gap: 8px;
-}
-
-.task-actions button {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 4px;
-    background-color: #1976d2;
-    color: white;
-    cursor: pointer;
-}
-
-.task-actions button:hover {
-    background-color: #1565c0;
+.task-filter button:hover, .task-filter .active {
+  background-color: #63422a;
 }

@@ -1,3 +1,5 @@
+import '../styles/TaskForm.css';
+
 import { useState, useEffect } from 'react';
 
 function TaskForm({ onSubmit, editingTask }) {
@@ -48,7 +50,7 @@ function TaskForm({ onSubmit, editingTask }) {
   
   return (
     <div className="task-form">
-      <h2>{editingTask ? 'Edit Task' : 'New Task'}</h2>
+      <h2>{editingTask ? 'Edit Task' : 'Create New Task'}</h2>
       <form onSubmit={handleForm}>
         <input
           type="text"
